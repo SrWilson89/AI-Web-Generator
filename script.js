@@ -1241,20 +1241,20 @@ function generateServiceCards(theme) {
 
 // ===== UI FUNCTIONS =====
 function showLoadingState() {
-    elements.loadingSection.style.display = 'block';
-    elements.resultsSection.style.display = 'none';
+    elements.loadingSection.classList.remove('d-none');
+    elements.resultsSection.classList.add('d-none');
     elements.generateBtn.disabled = true;
     elements.generateBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Generando...';
 }
 
 function hideLoadingState() {
-    elements.loadingSection.style.display = 'none';
+    elements.loadingSection.classList.add('d-none');
     elements.generateBtn.disabled = false;
-    elements.generateBtn.textContent = 'Generar Sitio Web';
+    elements.generateBtn.innerHTML = '<i class="bi bi-magic me-2"></i> Generar';
 }
 
 function showResults() {
-    elements.resultsSection.style.display = 'block';
+    elements.resultsSection.classList.remove('d-none');
     // Resaltar el código generado
     if (window.Prism) {
         Prism.highlightAll();
@@ -1362,6 +1362,8 @@ function updatePreview() {
         <!DOCTYPE html>
         <html>
         <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>${css}</style>
         </head>
         <body>
@@ -1371,4 +1373,7 @@ function updatePreview() {
         </html>
     `);
     previewDoc.close();
+    
+    // Forzar redimensionamiento del iframe
+    elements.livePreview.style.height = elements.livePreview.contentWindow.document.body.scrollHeight + 'px';
 }
